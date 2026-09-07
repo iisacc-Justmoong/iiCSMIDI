@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(iiCSMIDI VERSION 0.1.0 LANGUAGES CXX)
+project(iiCSMIDI VERSION 0.2.0 LANGUAGES CXX)
 
 if(PROJECT_IS_TOP_LEVEL AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     if(DEFINED ENV{HOME} AND NOT "$ENV{HOME}" STREQUAL "")
@@ -15,13 +15,15 @@ endif()
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
+list(PREPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local/SDK/iiFileProvider")
+find_package(iiFileProvider 0.2.0 CONFIG REQUIRED)
 find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Core)
 
-add_library(iiCSMIDI SHARED iiCSMIDI.h iiCSMIDI.cpp)
+add_library(iiCSMIDI SHARED iiCSMIDI.h iiCSMIDI.cpp Export.h MidiDocument.h MidiDocument.cpp)
 add_library(iiCSMIDI::iiCSMIDI ALIAS iiCSMIDI)
 target_compile_features(iiCSMIDI PUBLIC cxx_std_20)
 target_compile_definitions(iiCSMIDI PRIVATE IICSMIDI_BUILDING_LIBRARY)
-target_link_libraries(iiCSMIDI PUBLIC Qt6::Core)
+target_link_libraries(iiCSMIDI PUBLIC Qt6::Core iiFileProvider::iiFileProvider)
 target_include_directories(iiCSMIDI PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
@@ -58,7 +60,7 @@ install(TARGETS iiCSMIDI EXPORT iiCSMIDITargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-install(FILES iiCSMIDI.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES iiCSMIDI.h Export.h MidiDocument.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(EXPORT iiCSMIDITargets NAMESPACE iiCSMIDI:: DESTINATION "${_package_dir}")
 install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfig.cmake"
@@ -66,3 +68,9 @@ install(FILES
     DESTINATION "${_package_dir}"
 )
 install(FILES README.md DESTINATION "${CMAKE_INSTALL_DATADIR}/iiCSMIDI")
+
+if(BUILD_TESTING)
+    add_executable(iiCSMIDI_authorship tests/authorship.cpp)
+    target_link_libraries(iiCSMIDI_authorship PRIVATE iiCSMIDI::iiCSMIDI)
+    add_test(NAME iiCSMIDI.authorship COMMAND iiCSMIDI_authorship)
+endif()

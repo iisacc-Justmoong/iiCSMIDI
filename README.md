@@ -1,6 +1,6 @@
 # iiCSMIDI
 
-C++20과 Qt 6.8.3 Core를 사용하는 버전 0.1.0의 동적 라이브러리 플레이스홀더이다. 현재 API는 정확히 `Hello world!`를 반환하는 함수 하나이며, SDK 이름이 암시하는 도메인 기능은 구현하지 않았다.
+C++20과 Qt 6.8.3 Core를 사용하는 버전 0.2.0의 동적 라이브러리이다. `MidiDocument`가 Standard MIDI File과 iiFileProvider 작성자 기록을 보유하고, `MidiFile`이 편집 내용과 메타데이터를 즉시 파일에 반영한다.
 
 ## 공개 API
 
@@ -10,7 +10,7 @@ C++20과 Qt 6.8.3 Core를 사용하는 버전 0.1.0의 동적 라이브러리 �
 const QString message = iiCSMIDI::helloWorld();
 ```
 
-`[[nodiscard]] QString iiCSMIDI::helloWorld()`는 호출할 때마다 `Hello world!`를 반환한다. 공개 헤더와 구현은 소스 루트에 함께 배치한다. 외부 의존성은 기존 Qt 6.8.3 Core이며, 신규 외부 라이브러리를 도입하지 않았다. Qt의 사용 및 배포 조건은 설치된 Qt 라이선스에 따른다.
+`[[nodiscard]] QString iiCSMIDI::helloWorld()`는 호출할 때마다 `Hello world!`를 반환한다. 기존 `helloWorld()`도 유지한다. 공개 헤더와 구현은 소스 루트에 함께 배치한다. Qt 6.8.3 Core와 iiFileProvider 0.2.0이 필요하다. Qt의 사용 및 배포 조건은 설치된 Qt 라이선스에 따른다.
 
 ## 빌드, 테스트, 설치
 
@@ -53,7 +53,7 @@ ctest --test-dir build/consumer/build -C Release --output-on-failure
 기본 설치 경로에 `include/iiCSMIDI.h`, `lib/`의 공유 라이브러리, `lib/cmake/iiCSMIDI/`의 CMake 패키지, `share/iiCSMIDI/README.md`가 생성된다. Windows 공유 라이브러리 실행 파일은 `bin/`에 설치된다. 소비자에게 C++20 및 `Qt6::Core` 링크 요구 사항을 전달한다. Qt를 묶어서 복사하지 않으며 설치된 Qt 런타임이 필요하다. 공유 라이브러리의 설치 RPATH는 링크에 사용한 외부 라이브러리 경로를 포함한다.
 
 ```cmake
-find_package(iiCSMIDI 0.1.0 CONFIG REQUIRED)
+find_package(iiCSMIDI 0.2.0 CONFIG REQUIRED)
 target_link_libraries(my_app PRIVATE iiCSMIDI::iiCSMIDI)
 ```
 
@@ -68,3 +68,49 @@ iiCSMIDI의 자체 작성 코드와 문서는 GNU Affero General Public License 
 
 Qt를 포함한 외부 라이브러리와 별도 고지가 있는 서드파티 코드는 각자의 라이선스를
 유지한다. 이 프로젝트의 라이선스 선언은 해당 서드파티 라이선스를 대체하지 않는다.
+
+## Authored Standard MIDI Files
+
+`MidiDocument` owns strict SMF 0/1/2 bytes and an iiFileProvider 0.2 `Authorship`
+value. `setFileAuthor` selects the current account; `setMidiData` validates and
+replaces musical content, preserving the current ledger. Each real change
+synchronously regenerates its cached JSON dump. Identical input is a no-op, and
+malformed input throws before either content or metadata changes. `fromBytes`
+restores file attribution but never the active editor or authentication token.
+
+`toBytes` embeds the UTF-8 JSON as canonical base64url ASCII in a delta-zero
+text meta event (`FF 01`) at the beginning of track 0. The text prefix is
+`iisacc:authorship:v1:`. Standard track lengths are updated; existing event bytes,
+running status, tempo, note data and timing remain unchanged. This is a normal
+[SMF text event](https://midi.org/standard-midi-files), not a playback message.
+Unknown authored-event versions, duplicate/misplaced records, malformed VLQs,
+truncated events, missing end-of-track, unsupported status bytes and files over
+64 MiB fail closed. The metadata contract itself is capped at 1 MiB. Header
+extension bytes and all supported track events are retained; unknown chunk types
+and non-SMF containers are rejected. Other editors may remove text metadata.
+
+```cpp
+auto file = iiCSMIDI::MidiFile::open("composition.mid");
+file.edit([&](iiCSMIDI::MidiDocument &draft) {
+    draft.setFileAuthor(author); // Validated iiFileProvider::FileAuthor
+    draft.setMidiData(updatedSmfBytes);
+    return true;
+}); // Content and authorship have reached the file here.
+```
+
+`MidiFile::create` refuses an existing destination. `edit` works on a temporary
+copy, writes with Qt's atomic `QSaveFile`, and commits live state only on success.
+False or exceptions reject the draft. It detects an already changed external file
+before replacement and rejects nested edits. Copies of the document carry no file
+binding. The owner is single-threaded; external applications are not locked.
+
+Dependency review: iiFileProvider is a required, actively maintained sibling SDK
+under AGPL-3.0-only, matching iiCSMIDI. It reuses Qt Core already linked here, with
+no network or authentication runtime. Qt provides JSON and atomic file I/O. The
+small SMF metadata transport is this library's domain; no sequencer, synthesizer
+or additional MIDI engine is introduced. Tokens remain only in runtime account
+objects and never enter the authored file. Attribution is not ownership proof.
+
+`install.sh` runs source and standalone installed-package author tests, including
+lossless event round trips, no-op/rejection behavior, malformed metadata and an
+external-write conflict.
