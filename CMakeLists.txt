@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(iiCSMIDI VERSION 0.2.0 LANGUAGES CXX)
+project(iiCSMIDI VERSION 0.2.1 LANGUAGES CXX)
 
 if(PROJECT_IS_TOP_LEVEL AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     if(DEFINED ENV{HOME} AND NOT "$ENV{HOME}" STREQUAL "")
@@ -16,7 +16,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
 list(PREPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local/SDK/iiFileProvider")
-find_package(iiFileProvider 0.2.0 CONFIG REQUIRED)
+find_package(iiFileProvider 0.5.0 CONFIG REQUIRED)
 find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Core)
 
 add_library(iiCSMIDI SHARED iiCSMIDI.h iiCSMIDI.cpp Export.h MidiDocument.h MidiDocument.cpp)

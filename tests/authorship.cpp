@@ -1,4 +1,5 @@
 #include <iiCSMIDI.h>
+#include <iiFileProvider.h>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -68,5 +69,7 @@ int main(int argc, char **argv) {
     rejected = false;
     try { file.edit([&](MidiDocument &draft) { draft.setMidiData(valid); return true; }); } catch (const std::runtime_error &) { rejected = true; }
     check(rejected && file.document().authorship().revision() == 3, "external changes fail without advancing live state");
+    check(iiFileProvider::File::remove(file.path()), "provider deletes a MIDI document");
+    check(!QFile::exists(file.path()), "MIDI file is removed");
     return 0;
 }

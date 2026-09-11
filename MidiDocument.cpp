@@ -1,7 +1,5 @@
 #include "MidiDocument.h"
-#include <QFile>
-#include <QFileInfo>
-#include <QSaveFile>
+#include <iiFileProvider.h>
 #include <QtEndian>
 #include <stdexcept>
 
@@ -106,12 +104,7 @@ Parsed parse(const QByteArray &bytes) {
     return parsed;
 }
 QByteArray read(const QString &path) {
-    QFile file(path);
-    if (!file.open(QIODevice::ReadOnly) || file.size() > MidiDocument::MaximumFileBytes)
-        throw std::runtime_error("cannot read MIDI file within size limit");
-    const auto bytes = file.read(MidiDocument::MaximumFileBytes + 1);
-    if (file.error() != QFileDevice::NoError) throw std::runtime_error("MIDI file read failed");
-    return bytes;
+    return iiFileProvider::File::read(path, MidiDocument::MaximumFileBytes);
 }
 }
 MidiDocument::MidiDocument()
@@ -144,17 +137,13 @@ QByteArray MidiDocument::toBytes() const {
     return m_midi.first(track+4) + be32(u32(m_midi,track+4) + static_cast<quint32>(event.size())) + event + m_midi.mid(track+8);
 }
 MidiFile MidiFile::create(const QString &path, const MidiDocument &document) {
-    MidiFile result; result.m_path = QFileInfo(path).absoluteFilePath(); result.m_document = document;
+    MidiFile result; result.m_path = iiFileProvider::File::absolutePath(path); result.m_document = document;
     result.m_committed = document.toBytes();
-    QFile file(result.m_path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::NewOnly)) throw std::runtime_error("cannot create a new MIDI file");
-    if (file.write(result.m_committed) != result.m_committed.size() || !file.flush()) {
-        file.remove(); throw std::runtime_error("MIDI file creation failed");
-    }
+    iiFileProvider::File::create(result.m_path, result.m_committed);
     return result;
 }
 MidiFile MidiFile::open(const QString &path) {
-    MidiFile result; result.m_path = QFileInfo(path).absoluteFilePath(); result.m_committed = read(result.m_path);
+    MidiFile result; result.m_path = iiFileProvider::File::absolutePath(path); result.m_committed = read(result.m_path);
     result.m_document = MidiDocument::fromBytes(result.m_committed); return result;
 }
 const MidiDocument &MidiFile::document() const noexcept { return m_document; }
@@ -166,10 +155,7 @@ bool MidiFile::edit(const std::function<bool(MidiDocument &)> &callback) {
     if (!callback(draft)) return false;
     auto bytes = draft.toBytes();
     if (bytes == m_committed) { m_document = std::move(draft); return false; }
-    if (read(m_path) != m_committed) throw std::runtime_error("MIDI file changed outside this session; reopen before editing");
-    QSaveFile file(m_path); file.setDirectWriteFallback(false);
-    if (!file.open(QIODevice::WriteOnly) || file.write(bytes) != bytes.size() || !file.commit())
-        throw std::runtime_error("atomic MIDI file commit failed");
+    iiFileProvider::File::update(m_path, m_committed, bytes);
     m_document = std::move(draft); m_committed = std::move(bytes); return true;
 }
 } // namespace iiCSMIDI

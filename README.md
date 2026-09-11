@@ -1,6 +1,6 @@
 # iiCSMIDI
 
-C++20과 Qt 6.8.3 Core를 사용하는 버전 0.2.0의 동적 라이브러리이다. `MidiDocument`가 Standard MIDI File과 iiFileProvider 작성자 기록을 보유하고, `MidiFile`이 편집 내용과 메타데이터를 즉시 파일에 반영한다.
+C++20과 Qt 6.8.3 Core를 사용하는 버전 0.2.1의 동적 라이브러리이다. `MidiDocument`가 Standard MIDI File과 iiFileProvider 작성자 기록을 보유하고, `MidiFile`이 편집 내용과 메타데이터를 즉시 파일에 반영한다.
 
 ## 공개 API
 
@@ -10,7 +10,7 @@ C++20과 Qt 6.8.3 Core를 사용하는 버전 0.2.0의 동적 라이브러리이
 const QString message = iiCSMIDI::helloWorld();
 ```
 
-`[[nodiscard]] QString iiCSMIDI::helloWorld()`는 호출할 때마다 `Hello world!`를 반환한다. 기존 `helloWorld()`도 유지한다. 공개 헤더와 구현은 소스 루트에 함께 배치한다. Qt 6.8.3 Core와 iiFileProvider 0.2.0이 필요하다. Qt의 사용 및 배포 조건은 설치된 Qt 라이선스에 따른다.
+`[[nodiscard]] QString iiCSMIDI::helloWorld()`는 호출할 때마다 `Hello world!`를 반환한다. 기존 `helloWorld()`도 유지한다. 공개 헤더와 구현은 소스 루트에 함께 배치한다. Qt 6.8.3 Core와 iiFileProvider 0.5.0이 필요하다. Qt의 사용 및 배포 조건은 설치된 Qt 라이선스에 따른다.
 
 ## 빌드, 테스트, 설치
 
@@ -53,7 +53,7 @@ ctest --test-dir build/consumer/build -C Release --output-on-failure
 기본 설치 경로에 `include/iiCSMIDI.h`, `lib/`의 공유 라이브러리, `lib/cmake/iiCSMIDI/`의 CMake 패키지, `share/iiCSMIDI/README.md`가 생성된다. Windows 공유 라이브러리 실행 파일은 `bin/`에 설치된다. 소비자에게 C++20 및 `Qt6::Core` 링크 요구 사항을 전달한다. Qt를 묶어서 복사하지 않으며 설치된 Qt 런타임이 필요하다. 공유 라이브러리의 설치 RPATH는 링크에 사용한 외부 라이브러리 경로를 포함한다.
 
 ```cmake
-find_package(iiCSMIDI 0.2.0 CONFIG REQUIRED)
+find_package(iiCSMIDI 0.2.1 CONFIG REQUIRED)
 target_link_libraries(my_app PRIVATE iiCSMIDI::iiCSMIDI)
 ```
 
@@ -114,3 +114,7 @@ objects and never enter the authored file. Attribution is not ownership proof.
 `install.sh` runs source and standalone installed-package author tests, including
 lossless event round trips, no-op/rejection behavior, malformed metadata and an
 external-write conflict.
+
+## 파일 저장 소유권
+
+0.2.1의 MidiFile은 iiFileProvider 0.5의 create/read/update에 저장을 위임한다. SMF 검증과 작성자 기록은 이 SDK에 남고, 파일 삭제는 iiFileProvider::File::remove가 수행한다. 외부 저장 충돌은 메모리 상태를 바꾸지 않고 실패한다.
