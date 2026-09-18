@@ -19,13 +19,13 @@ list(PREPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local/SDK/iiFileProvider")
 find_package(iiFileProvider 0.5.0 CONFIG REQUIRED)
 find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Core)
 
-add_library(iiCSMIDI SHARED iiCSMIDI.h iiCSMIDI.cpp Export.h MidiDocument.h MidiDocument.cpp)
+add_library(iiCSMIDI SHARED src/iiCSMIDI.h src/iiCSMIDI.cpp src/Export.h src/MidiDocument.h src/MidiDocument.cpp)
 add_library(iiCSMIDI::iiCSMIDI ALIAS iiCSMIDI)
 target_compile_features(iiCSMIDI PUBLIC cxx_std_20)
 target_compile_definitions(iiCSMIDI PRIVATE IICSMIDI_BUILDING_LIBRARY)
 target_link_libraries(iiCSMIDI PUBLIC Qt6::Core iiFileProvider::iiFileProvider)
 target_include_directories(iiCSMIDI PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 set_target_properties(iiCSMIDI PROPERTIES
@@ -60,7 +60,7 @@ install(TARGETS iiCSMIDI EXPORT iiCSMIDITargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-install(FILES iiCSMIDI.h Export.h MidiDocument.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES src/iiCSMIDI.h src/Export.h src/MidiDocument.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(EXPORT iiCSMIDITargets NAMESPACE iiCSMIDI:: DESTINATION "${_package_dir}")
 install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfig.cmake"

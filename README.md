@@ -118,3 +118,7 @@ external-write conflict.
 ## 파일 저장 소유권
 
 0.2.1의 MidiFile은 iiFileProvider 0.5의 create/read/update에 저장을 위임한다. SMF 검증과 작성자 기록은 이 SDK에 남고, 파일 삭제는 iiFileProvider::File::remove가 수행한다. 외부 저장 충돌은 메모리 상태를 바꾸지 않고 실패한다.
+
+## Source layout
+
+Implementation files and their headers live together under `src/`. Existing feature and platform subdirectories retain their responsibilities. Build configuration, tests, documentation, resources, and maintenance scripts remain at the project root. Configure and build using the repository-local `build/` directory.
