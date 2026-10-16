@@ -2,9 +2,9 @@
 
 namespace iiCSMIDI {
 
-QString helloWorld()
+std::string helloWorld()
 {
-    return QStringLiteral("Hello world!");
+    return "Hello world!";
 }
 
 } // namespace iiCSMIDI

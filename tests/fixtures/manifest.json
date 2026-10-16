@@ -1,0 +1,15 @@
+{
+  "source": {
+    "module": "iiCSMIDI",
+    "version": "0.2.1",
+    "qt": "6.8.3",
+    "platform": "macOS arm64",
+    "captured": "2026-10-16"
+  },
+  "sha256": {
+    "legacy-qt68.smf.hex": "3b252e3f02636cb66a90457399a05efae94f5318698531e820c0679aaabbb2af",
+    "legacy-qt68.authorship.json": "011483f93a333b1ac27b506d0beb8ccbff8c72f7f7c28364dc5dbc6237cb3d17",
+    "qt68-journal.json": "a63f9748f7b4765e578b46197cca669849d92ea0e24fc7d6101c679767e961d5",
+    "qt68-journal.sha256": "2526c023196d2a7c05a698a02a8de0a81088ca33dc2495edee8753e6055b029d"
+  }
+}

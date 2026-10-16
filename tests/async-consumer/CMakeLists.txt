@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.31)
+project(MidiAsyncConsumer LANGUAGES CXX)
+set(CMAKE_DISABLE_FIND_PACKAGE_Qt6 TRUE)
+find_package(iiCSMIDI 0.3 CONFIG REQUIRED COMPONENTS Async)
+add_executable(consumer ../async.cpp)
+target_link_libraries(consumer PRIVATE iiCSMIDI::Async)
+enable_testing()
+add_test(NAME iiCSMIDI.InstalledAsync COMMAND consumer)
