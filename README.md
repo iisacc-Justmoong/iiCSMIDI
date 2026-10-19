@@ -1,5 +1,9 @@
 # iiCSMIDI
 
+The authorship storage test uses an explicit UTF-8 filesystem path for its Korean
+and emoji filename on Windows. Contract failures report their check number and
+original exception in the test log.
+
 Package release: **0.3.1** (2026-10-19). This patch packages the current
 source snapshot; build, test and installation evidence is recorded in the SDK
 patch-release report. Earlier versioned feature notes remain historical.

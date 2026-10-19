@@ -2,6 +2,7 @@
 #include <iiFileProviderPresentation.h>
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
 using namespace iiCSMIDI;
 using namespace iiFileProvider::native;
 using ii::core::Bytes;
@@ -18,7 +19,7 @@ Bytes hex(std::string_view input) {
 std::string text(const Bytes& bytes) { return {reinterpret_cast<const char*>(bytes.data()),bytes.size()}; }
 template<class F> bool invalid(F work) { try { work(); } catch (const std::invalid_argument &) { return true; } return false; }
 }
-int main(int argc,char** argv) {
+int main(int argc,char** argv) try {
     auto author=FileAuthor::fromIisaccAccount({{"sub","midi-author"},{"email","author@example.com"},
         {"displayName","MIDI Author"},{"userId","@midi_author"},{"societyCloudMembership","Free"}},
         "https://iisacc.com","2026-10-14T10:00:00.000Z");
@@ -66,7 +67,7 @@ int main(int argc,char** argv) {
         ~VisibleDirectory() { Presentation::cancelPending(value); std::error_code error; std::filesystem::remove_all(value,error); }
         const std::filesystem::path& path() const { return value; }
     } dir;
-    auto file=MidiFile::create(dir.path()/"한글 🎵.mid",document);
+    auto file=MidiFile::create(dir.path()/u8"한글 🎵.mid",document);
     bool rejected=false;
     try { (void)MidiFile::create(file.path()); } catch (const FileError &) { rejected=true; }
     check(rejected && File::read(file.path())==text(document.toBytes()),"exclusive creation preserves existing file");
@@ -87,4 +88,7 @@ int main(int argc,char** argv) {
     check(Presentation::load(file.path()).has_value(),"provider publishes file details and preview");
     check(File::remove(file.path()) && !std::filesystem::exists(file.path()),"provider deletion");
     std::cout<<checks<<" native SMF/storage/compatibility checks passed\n";
+} catch (const std::exception &error) {
+    std::cerr << "Authorship contract " << checks << ": " << error.what() << '\n';
+    return 1;
 }
