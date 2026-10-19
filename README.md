@@ -1,5 +1,7 @@
 # iiCSMIDI
 
+[Windows 빌드 및 실행](docs/WindowsBuildAndRun.md)
+
 The authorship storage test uses an explicit UTF-8 filesystem path for its Korean
 and emoji filename on Windows. Contract failures report their check number and
 original exception in the test log.
