@@ -1,6 +1,11 @@
 # iiCSMIDI
 
-iiCSMIDI 0.3.0 is a native C++23 Standard MIDI File document library. Its public
+Package release: **0.3.1** (2026-10-19). This patch packages the current
+source snapshot; build, test and installation evidence is recorded in the SDK
+patch-release report. Earlier versioned feature notes remain historical.
+
+
+iiCSMIDI 0.3.1 is a native C++23 Standard MIDI File document library. Its public
 API, implementation and installed base package are Qt-free. It depends on
 iiSDKCore 0.14 Contracts, iiFileProvider Native 0.8 and the separate iiJson 0.1
 codec. The optional Async component adds Core Runtime. It does not implement a
