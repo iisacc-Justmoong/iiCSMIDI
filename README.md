@@ -114,5 +114,13 @@ SMF validation/storage assertions, enumerate truncated inputs, check draft and
 external conflict preservation, and exercise actual Native presentation. See
 [fixture provenance](tests/fixtures/README.md). Attribution is not ownership proof.
 
-Original code/documents are AGPL-3.0-only. See LICENSE. No Qt implementation or
+Original code/documents are MIT. See LICENSE. No Qt implementation or
 code is copied. Public headers and implementations live together under src/.
+
+## License
+
+SPDX-License-Identifier: MIT
+
+The original code and documentation in this repository are licensed under the
+[MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model
+weights retain their respective licenses.
