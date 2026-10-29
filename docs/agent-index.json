@@ -1,0 +1,83 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCSMIDI",
+    "name": "iiCSMIDI",
+    "root": "SDK/iiCSMIDI",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:fc20c284b812a2755bb3982eae138054b74fdfcff28c036ccb7fc6a62001677a",
+      "source": "AGENT.md",
+      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "source_sha256": "11e10481f462b483ba3ef8e0ec7e29b6017f3b2a47c01f456ad25721173aa3a6",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:fc7f317dfd8dc0768c9ff7e097117f0f46e7273ae8b8dd792baa425084559ddc",
+      "source": "README.md",
+      "agent_json": "docs/entrypoints/README.agent.json",
+      "source_sha256": "626e79f789519e55a1193ce23581a2d954828569b36e6f0c57cc35952437ca8b",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:ce06651cb9f87c431640ae2c78ba4c1ed81016b1d09189607d3eee7b8440f19b",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "cb186f497e1f60521a1fa2ae80ac3761e497b7673b9a4a1a887b1c36d45c07e0",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:11b9b93cbb464ffb9e869e3b234962710fc197c160b70d346bfce85d6e997874",
+      "source": "docs/WindowsBuildAndRun.md",
+      "agent_json": "docs/WindowsBuildAndRun.agent.json",
+      "source_sha256": "7a5beacb6ee9e3d854512b511328906155f9e8ee075b4d49b678275f037d54fe",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:9bbb57fc557bc22215e9206047335994ec3a9e1a74dc92c14c603b944f480179",
+      "source": "docs/documentation-structure.md",
+      "agent_json": "docs/documentation-structure.agent.json",
+      "source_sha256": "9e5ccd3ebd02c730d32a536673addfe8256877bf26f5ea506cf16c61d0b6bca0",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:b0a918cd87539a3af2cb4bdad8274454f3b0e552bccafb4df1bfceac024d36ac",
+      "source": "docs/independent-contract.md",
+      "agent_json": "docs/independent-contract.agent.json",
+      "source_sha256": "adb69f63f1d08263a94533fd7867044f6ed3eeb0fc190b3cb624c0294fbc1942",
+      "role": "reference"
+    },
+    {
+      "document_id": "urn:iisacc:document:3a852e4cc2f55b3f62ff9efbb015f18c2b837d4b9f765a36e839b6b02a3c273e",
+      "source": "docs/validation.md",
+      "agent_json": "docs/validation.agent.json",
+      "source_sha256": "51c70ff8e1aff84d6efa06c3f4e79e764435b1887d477c8946735ef2284433be",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:5f2d5d05effe5f40bc4ebee33a5f7b93fc3b013f05b07aac9b2a8aacecb02071",
+      "source": "tests/fixtures/README.md",
+      "agent_json": "docs/mirrors/tests/fixtures/README.agent.json",
+      "source_sha256": "2a88485bf0e6f0082667d09aebf542e5c6eb077f6f09ac3ae8c9fe3502a1a53a",
+      "role": "overview"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

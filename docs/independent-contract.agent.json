@@ -1,0 +1,263 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:b0a918cd87539a3af2cb4bdad8274454f3b0e552bccafb4df1bfceac024d36ac",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCSMIDI",
+    "name": "iiCSMIDI",
+    "root": "SDK/iiCSMIDI",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/independent-contract.md",
+    "sha256": "adb69f63f1d08263a94533fd7867044f6ed3eeb0fc190b3cb624c0294fbc1942",
+    "bytes": 2877,
+    "line_count": 40,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "독립 MIDI 문서와 앱 조합 계약",
+    "role": "reference",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 독립 MIDI 문서와 앱 조합 계약\n",
+      "level": 1,
+      "title": "독립 MIDI 문서와 앱 조합 계약"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "`iiCSMIDI`는 C++23 표준 타입으로 SMF 데이터와 편집 상태를 다룬다.\n다른 SDK의 헤더·타깃·설치 순서 또는 파일 생성 구현을 요구하지 않는다.\n파일 생성과 변경은 애플리케이션이 주입한 `MidiStorage`에 위임한다.\n인터페이스는 표준 컨테이너와 가상 함수를 사용하는 C++ ABI이므로 같은 앱에서\n조합하는 바이너리는 호환되는 컴파일러·표준 라이브러리·런타임을 사용해야 한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "## 파일과 편집\n",
+      "level": 2,
+      "title": "파일과 편집"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 16,
+      "raw": "`MidiFile::create(path, storage, document)`와 `open(path, storage, factory)`는\n공유 소유권으로 저장 구현의 수명을 유지한다. 생성은 기존 대상을 보존해야 하고\n`update`는 이전에 확정한 바이트가 현재 내용과 맞는지 확인한 뒤 게시해야 한다.\n편집이 거부되거나 콜백·저장 작업이 예외를 던지면 문서의 확정 상태는 변하지\n않는다. 중첩 편집과 이동된 파일의 편집은 거부한다. 이 보장은 저장 구현이\n계약을 지킬 때 성립하며 임의의 외부 프로세스를 잠그는 분산 CAS는 아니다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "## 저작자 메타데이터\n",
+      "level": 2,
+      "title": "저작자 메타데이터"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 20,
+      "end_line": 26,
+      "raw": "저작자 이벤트가 없는 일반 SMF는 어댑터 없이 읽을 수 있다. 저작자 이벤트가\n있으면 `AuthorshipFactory::fromDump`를 제공해야 하며, 검증 실패 또는 반환된\n직렬화 바이트가 원본과 다르면 읽기를 거부한다. `Authorship::clone`은 독립\n상태를 반환해야 한다. `dump`의 뷰는 해당 상태가 변경되거나 파괴될 때까지\n유효해야 한다. 작성자는 `setFileAuthor`에 직렬화 프로필을 제공하고, 팩토리가\n이를 검증한다. SDK는 임의의 팩토리가 안전한 JSON 또는 자격 증명 제거 정책을\n적용한다고 가정하지 않는다. 전체 파일은 64 MiB, 저작자 정보는 2 MiB로 제한한다.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 28,
+      "end_line": 32,
+      "raw": "`example/FileProvider`는 iiJson의 제한된 JSON 검증과 iiFileProvider의 기존\n저작자 스키마·파일 작업을 조합한다. 원래 `iisacc:authorship:v1:` 이벤트와\n기존 fixture를 보존하고 파일 충돌·덮어쓰기·프리뷰 요청을 처리한다. 이 어댑터는\nSDK 빌드에 포함되지 않는다. 기존 `FileAuthor` 인자, provider 소유 저작자 반환형,\n암묵적 파일 저장 호출은 새 계약으로 교체하고 소비자를 다시 빌드해야 한다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "heading",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "## 비동기 조합\n",
+      "level": 2,
+      "title": "비동기 조합"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 35,
+      "end_line": 35,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 36,
+      "end_line": 40,
+      "raw": "`example/CoreAsync`의 `iiCSMIDIAsync` 패키지는 앱에서 MIDI와 Core Runtime을\n조합해 기존 `iiCSMIDI::Async` 타깃을 제공한다. `decodeAsync`는 입력을 소유하며\n저작자 이벤트가 있는 파일은 팩토리를 함께 전달해야 한다. 작업 취소와 결과\n전달 수명은 Core Runtime 계약에 따른다. 이전 `iiCSMIDI`의 Async 컴포넌트는\n필수 요청 시 이전 안내와 함께 실패한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "독립 MIDI 문서와 앱 조합 계약",
+      "anchor": "독립-midi-문서와-앱-조합-계약",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "파일과 편집",
+      "anchor": "파일과-편집",
+      "start_line": 9
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "저작자 메타데이터",
+      "anchor": "저작자-메타데이터",
+      "start_line": 18
+    },
+    {
+      "block_id": "b000015",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "비동기 조합",
+      "anchor": "비동기-조합",
+      "start_line": 34
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "다른 SDK의 헤더·타깃·설치 순서 또는 파일 생성 구현을 요구하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000003",
+        "line": 7,
+        "text": "조합하는 바이너리는 호환되는 컴파일러·표준 라이브러리·런타임을 사용해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 13,
+        "text": "`update`는 이전에 확정한 바이트가 현재 내용과 맞는지 확인한 뒤 게시해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 23,
+        "text": "상태를 반환해야 한다. `dump`의 뷰는 해당 상태가 변경되거나 파괴될 때까지",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 24,
+        "text": "유효해야 한다. 작성자는 `setFileAuthor`에 직렬화 프로필을 제공하고, 팩토리가",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 26,
+        "text": "적용한다고 가정하지 않는다. 전체 파일은 64 MiB, 저작자 정보는 2 MiB로 제한한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 32,
+        "text": "암묵적 파일 저장 호출은 새 계약으로 교체하고 소비자를 다시 빌드해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 38,
+        "text": "저작자 이벤트가 있는 파일은 팩토리를 함께 전달해야 한다. 작업 취소와 결과",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 40,
+        "text": "필수 요청 시 이전 안내와 함께 실패한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

@@ -1,22 +1,22 @@
 # iiCSMIDI: Windows 빌드 및 실행
 
-MIDI 데이터와 비동기 작업을 제공하는 iiSDKCore 기반 C++23 SDK이다.
+MIDI 데이터를 제공하는 독립 C++23 SDK이다. 파일·저작자와 비동기 작업은 별도 소비자가 필요한 SDK를 조합한다.
 
 검증 기록 갱신: `2026-10-20T02:45:37+09:00`. 변경 전 소스 기준 commit: `dc1b536ab33208d021d1aa24107a113dcf95111d`. 아래 결과는 이번 변경을 포함한 작업 트리의 검증이다.
 
 ## 현재 검증 상태
 
-Release 빌드·실행 검사·설치를 완료하였다. 등록 검사 4개 중 4개 통과, 0개 실패, 0개 skip이다.
+아래 4개 검사 통과 기록은 2026-10-20 소스에 대한 이전 결과다. 2026-10-28 비동기 조합 분리 이후 Windows 빌드와 실행은 아직 확인하지 않았다.
 
 ## 이 프로젝트의 의존성과 실행 범위
 
-선행 workspace SDK는 다음과 같다. 각각의 Windows 지침에 따라 실행 검증과 설치를 완료한 뒤 진행한다.
+본체는 다른 SDK를 필요로 하지 않는다. 다음 SDK는 각각 별도 소비자를 구성할 때 사용한다.
 
 - [iiFileProvider](../../../SDK/iiFileProvider/docs/WindowsBuildAndRun.md)
 - [iiJson](../../../SDK/iiJson/docs/WindowsBuildAndRun.md)
 - [iiSDKCore](../../../SDK/iiSDKCore/docs/WindowsBuildAndRun.md)
 
-- iiSDKCore Contracts/Runtime, iiFileProvider Native 0.8 이상 및 iiJson이 필요하다.
+- `example/FileProvider` 소비자는 iiFileProvider Native 0.8 이상과 iiJson이 필요하다. `example/CoreAsync` 소비자는 Core Runtime을 사용한다.
 - Python 3.9 이상을 경계·패키지 검사에 사용한다.
 
 프로젝트별 Windows 조건은 다음과 같다.
@@ -91,7 +91,7 @@ ctest --test-dir build -C Release --output-on-failure --parallel 1 --no-tests=er
 if ($LASTEXITCODE -ne 0) { throw '전체 실행 검사 실패' }
 ```
 
-현재 빌드에 실제 등록된 실행 경로의 예는 `iiCSMIDI.hello_world`, `iiCSMIDI.authorship`, `iiCSMIDI.Async`이다. 전체 목록은 `ctest --test-dir build -N`으로 확인한다.
+현재 빌드에 실제 등록된 실행 경로의 예는 `iiCSMIDI.hello_world`, `iiCSMIDI.independent`, `iiCSMIDI.AsyncBoundary`, `iiCSMIDI.SDKBoundary`이다. 전체 목록은 `ctest --test-dir build -N`으로 확인한다.
 
 ## 설치와 배포 범위
 

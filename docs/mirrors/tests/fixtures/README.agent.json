@@ -1,0 +1,121 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:5f2d5d05effe5f40bc4ebee33a5f7b93fc3b013f05b07aac9b2a8aacecb02071",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCSMIDI",
+    "name": "iiCSMIDI",
+    "root": "SDK/iiCSMIDI",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "tests/fixtures/README.md",
+    "sha256": "2a88485bf0e6f0082667d09aebf542e5c6eb077f6f09ac3ae8c9fe3502a1a53a",
+    "bytes": 1194,
+    "line_count": 19,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Legacy compatibility evidence",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Legacy compatibility evidence\n",
+      "level": 1,
+      "title": "Legacy compatibility evidence"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "Captured on 2026-10-16 using the existing iiCSMIDI 0.2.1 and Qt 6.8.3 packages,\nbefore editing the native replacement. Capture source and build logs remain in\nbuild/legacy-capture (a build artifact, not a runtime dependency).\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "list",
+      "start_line": 7,
+      "end_line": 12,
+      "raw": "- legacy-qt68.smf.hex: authored minimal format-0 SMF, hexadecimal bytes.\n- legacy-qt68.authorship.json: exact persisted schema-3 metadata including a\n  Korean/astral display name; no credentials or active editing identity.\n- qt68-journal.json: representative NamespaceJournal-shaped QJsonDocument::Compact\n  output, including nested objects, string counters, Unicode and escaped text.\n- qt68-journal.sha256: Qt QCryptographicHash SHA-256 of those exact compact bytes.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "legacy-qt68.smf.hex: authored minimal format-0 SMF, hexadecimal bytes.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "legacy-qt68.authorship.json: exact persisted schema-3 metadata including a",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "qt68-journal.json: representative NamespaceJournal-shaped QJsonDocument::Compact",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "qt68-journal.sha256: Qt QCryptographicHash SHA-256 of those exact compact bytes.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 19,
+      "raw": "Authorship input was a synthetic account (legacy-midi / legacy@example.com),\nwith capturedAt fixed to 2026-10-14T10:00:00.000Z. The edit timestamp was captured\nonce and is intentionally frozen. The native test compares authored SMF and\nmetadata bytes exactly and verifies the journal fixture's hash. The journal is\nnot a production database export. No universal Qt/iiJson serialization equivalence\nis claimed and NamespaceJournal's live serializer was not changed.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Legacy compatibility evidence",
+      "anchor": "legacy-compatibility-evidence",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

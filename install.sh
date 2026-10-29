@@ -33,10 +33,30 @@ cmake -S "${source_dir}/tests/consumer" -B "$consumer_build_dir" \
 cmake --build "$consumer_build_dir" --config Release --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-2}"
 ctest --test-dir "$consumer_build_dir" -C Release --output-on-failure
 
-async_build_dir="${build_dir}/async-consumer/build"
-cmake -S "${source_dir}/tests/async-consumer" -B "$async_build_dir" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DiiCSMIDI_DIR="${install_prefix}/lib/cmake/iiCSMIDI" \
-    -DCMAKE_PREFIX_PATH="${install_prefix}${cmake_prefix_path:+;${cmake_prefix_path}}"
-cmake --build "$async_build_dir" --config Release --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-2}"
-ctest --test-dir "$async_build_dir" -C Release --output-on-failure
+if [[ "${IICSMIDI_TEST_FILE_PROVIDER:-OFF}" == ON ]]; then
+    file_adapter_build="${build_dir}/file-consumer/build"
+    cmake -S "${source_dir}/example/FileProvider" -B "$file_adapter_build" \
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON \
+        -DiiCSMIDI_DIR="${install_prefix}/lib/cmake/iiCSMIDI" \
+        -DCMAKE_PREFIX_PATH="${install_prefix}${cmake_prefix_path:+;${cmake_prefix_path}}"
+    cmake --build "$file_adapter_build" --config Release --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-2}"
+    ctest --test-dir "$file_adapter_build" -C Release --output-on-failure
+fi
+
+if [[ "${IICSMIDI_INSTALL_ASYNC:-OFF}" == ON ]]; then
+    async_adapter_build="${build_dir}/core-async/build"
+    cmake -S "${source_dir}/example/CoreAsync" -B "$async_adapter_build" \
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON \
+        -DiiCSMIDI_DIR="${install_prefix}/lib/cmake/iiCSMIDI" \
+        -DCMAKE_PREFIX_PATH="${install_prefix}${cmake_prefix_path:+;${cmake_prefix_path}}"
+    cmake --build "$async_adapter_build" --config Release --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-2}"
+    ctest --test-dir "$async_adapter_build" -C Release --output-on-failure
+    cmake --install "$async_adapter_build" --config Release --prefix "$install_prefix"
+    async_build_dir="${build_dir}/async-consumer/build"
+    cmake -S "${source_dir}/tests/async-consumer" -B "$async_build_dir" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DiiCSMIDIAsync_DIR="${install_prefix}/lib/cmake/iiCSMIDIAsync" \
+        -DCMAKE_PREFIX_PATH="${install_prefix}${cmake_prefix_path:+;${cmake_prefix_path}}"
+    cmake --build "$async_build_dir" --config Release --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-2}"
+    ctest --test-dir "$async_build_dir" -C Release --output-on-failure
+fi

@@ -7,11 +7,11 @@ namespace iiCSMIDI {
 // uses existing Runtime workers; no detached or per-document thread is created.
 template<ii::runtime::TaskExecutor Executor>
 [[nodiscard]] ii::runtime::Operation<MidiDocument> decodeAsync(
-    const ii::runtime::OperationOwner& owner,Executor& executor,ii::core::Bytes bytes,
-    ii::runtime::OperationOptions options={}) {
-    return owner.submit<MidiDocument>(executor,[bytes=std::move(bytes)](ii::runtime::WorkContext& context) -> ii::core::Result<MidiDocument> {
+    const ii::runtime::OperationOwner& owner,Executor& executor,Bytes bytes,
+    ii::runtime::OperationOptions options={}, std::shared_ptr<const AuthorshipFactory> factory={}) {
+    return owner.submit<MidiDocument>(executor,[bytes=std::move(bytes),factory=std::move(factory)](ii::runtime::WorkContext& context) -> ii::core::Result<MidiDocument> {
         if (auto ready=context.checkpoint();!ready) return std::unexpected(ready.error());
-        auto result=MidiDocument::fromBytes(bytes);
+        auto result=MidiDocument::fromBytes(bytes,factory);
         if (auto ready=context.checkpoint();!ready) return std::unexpected(ready.error());
         return result;
     },options);

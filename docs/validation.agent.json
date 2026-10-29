@@ -1,0 +1,159 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:3a852e4cc2f55b3f62ff9efbb015f18c2b837d4b9f765a36e839b6b02a3c273e",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCSMIDI",
+    "name": "iiCSMIDI",
+    "root": "SDK/iiCSMIDI",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/validation.md",
+    "sha256": "51c70ff8e1aff84d6efa06c3f4e79e764435b1887d477c8946735ef2284433be",
+    "bytes": 2809,
+    "line_count": 38,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Native migration validation (historical 0.3.0)",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Native migration validation (historical 0.3.0)\n",
+      "level": 1,
+      "title": "Native migration validation (historical 0.3.0)"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 6,
+      "raw": "The implementation is 0.3.0, using Core 0.14.0, Native 0.8.0 and iiJson 0.1.0.\nThe host is macOS arm64. Source/build/package checks explicitly disable Qt6.\nPublic headers, implementation and package templates have a mandatory boundary\ncheck that also forbids direct file-creation backends in MIDI production code.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 8,
+      "end_line": 13,
+      "raw": "Source tests cover helloWorld/C++23, native authorship and SMF compatibility,\ntransactional Native storage and optional asynchronous decoding. Separate\ninstalled base and Async consumers use staged packages beneath build/native-p0.\nThe base import asserts that neither Qt nor Core Runtime was imported. Tests use\nvisible disposable directories beneath each build to exercise provider automatic\npresentation; provider-private hidden temporary files are intentionally excluded.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 15,
+      "end_line": 21,
+      "raw": "The fixed Qt fixture covers byte-preserving legacy authored SMF and metadata,\nnot every possible third-party SMF. The journal fixture checks only its preserved\nbytes/hash. Core/iiJson suites exercise grammar, bounds, lifetime and cancellation\nraces separately. The aggregate P0 verification report in\n../../iiSDKCore/build/p0-verification.json records final suite results and binary\ndependencies. Nothing in this migration establishes Windows/Linux/mobile device\nexecution; native package and WASM codec evidence are recorded separately.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "heading",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "# 2026-10-28 SDK 독립과 앱 조합 분리\n",
+      "level": 1,
+      "title": "2026-10-28 SDK 독립과 앱 조합 분리"
+    },
+    {
+      "id": "b000009",
+      "kind": "blank",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "paragraph",
+      "start_line": 24,
+      "end_line": 29,
+      "raw": "`iiCSMIDI` 본체의 선택 Async 컴포넌트와 Core Runtime 연결을 제거했다. 기존\n`MidiAsync.h` 및 비동기 검사는 별도 `example/CoreAsync` 소비자로 이동하고,\n새 `iiCSMIDIAsync` 패키지가 기존 `iiCSMIDI::Async` 타깃을 제공한다. 기존\n소비자는 패키지 검색을 변경하고 다시 빌드해야 한다. MIDI 본체의 Core Contracts,\niiFileProvider Native, iiJson 연결도 제거했다. 저작자 검증과 저장은 호출자가\n제공하는 인터페이스이며, `example/FileProvider`가 기존 구현을 조합한다.\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "blank",
+      "start_line": 30,
+      "end_line": 30,
+      "raw": "\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "paragraph",
+      "start_line": 31,
+      "end_line": 38,
+      "raw": "macOS arm64에서 다른 SDK 검색을 비활성화한 본체 빌드와 5개 검사가 통과했다.\n별도 파일 제공자 소비자의 기존 저작자·SMF fixture·충돌·프리뷰 검사가 통과했고,\n별도 비동기 소비자의 기존 30초 검사도 통과했다. 기존 Async 컴포넌트를 필수와\n선택으로 요청하는 패키지 구성 검사를 각각 확인했으며, 본체와 새 Async 패키지의\n설치 소비자는 컴파일만 확인했다. 실제 애플리케이션과 Windows·Linux 실행은 이번에\n확인하지 않았다. 격리된 새 설치본에는 이전 버전의 헤더·타깃이 남지 않는다.\n기존 설치 경로를 재사용하면 이전 파일이 남아 있을 수 있으므로 해당 파일의\n정리는 앱별 사용 여부를 확인한 뒤 수행한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Native migration validation (historical 0.3.0)",
+      "anchor": "native-migration-validation-historical-030",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000008",
+      "parent_id": null,
+      "level": 1,
+      "title": "2026-10-28 SDK 독립과 앱 조합 분리",
+      "anchor": "2026-10-28-sdk-독립과-앱-조합-분리",
+      "start_line": 22
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000010",
+        "line": 27,
+        "text": "소비자는 패키지 검색을 변경하고 다시 빌드해야 한다. MIDI 본체의 Core Contracts,",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000012",
+        "line": 33,
+        "text": "별도 비동기 소비자의 기존 30초 검사도 통과했다. 기존 Async 컴포넌트를 필수와",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}
