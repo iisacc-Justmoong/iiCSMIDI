@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/validation.md",
-    "sha256": "51c70ff8e1aff84d6efa06c3f4e79e764435b1887d477c8946735ef2284433be",
-    "bytes": 2809,
-    "line_count": 38,
+    "sha256": "574911da1c2f36af045f6176e99ab1019d893fcbd663a2759fa5c5942c96463c",
+    "bytes": 3114,
+    "line_count": 44,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -109,6 +109,36 @@
       "start_line": 31,
       "end_line": 38,
       "raw": "macOS arm64에서 다른 SDK 검색을 비활성화한 본체 빌드와 5개 검사가 통과했다.\n별도 파일 제공자 소비자의 기존 저작자·SMF fixture·충돌·프리뷰 검사가 통과했고,\n별도 비동기 소비자의 기존 30초 검사도 통과했다. 기존 Async 컴포넌트를 필수와\n선택으로 요청하는 패키지 구성 검사를 각각 확인했으며, 본체와 새 Async 패키지의\n설치 소비자는 컴파일만 확인했다. 실제 애플리케이션과 Windows·Linux 실행은 이번에\n확인하지 않았다. 격리된 새 설치본에는 이전 버전의 헤더·타깃이 남지 않는다.\n기존 설치 경로를 재사용하면 이전 파일이 남아 있을 수 있으므로 해당 파일의\n정리는 앱별 사용 여부를 확인한 뒤 수행한다.\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "blank",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "heading",
+      "start_line": 40,
+      "end_line": 40,
+      "raw": "## 빌드 디렉터리 정리\n",
+      "level": 2,
+      "title": "빌드 디렉터리 정리"
+    },
+    {
+      "id": "b000015",
+      "kind": "blank",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "paragraph",
+      "start_line": 42,
+      "end_line": 44,
+      "raw": "과거 소스 스냅샷, MIDI 자료, 검증 소스 및 iOS 복구 빌드는\n`resources/.recovery/build-history-20261030/`에 보존한다. 현재 `build/`는\n모듈과 테스트의 호스트 빌드를 생성한다. 과거 기록의 `build/` 경로는 당시 경로이다.\n"
     }
   ],
   "outline": [
@@ -127,6 +157,14 @@
       "title": "2026-10-28 SDK 독립과 앱 조합 분리",
       "anchor": "2026-10-28-sdk-독립과-앱-조합-분리",
       "start_line": 22
+    },
+    {
+      "block_id": "b000014",
+      "parent_id": "b000008",
+      "level": 2,
+      "title": "빌드 디렉터리 정리",
+      "anchor": "빌드-디렉터리-정리",
+      "start_line": 40
     }
   ],
   "indexes": {

@@ -25,10 +25,17 @@
       "role": "overview"
     },
     {
+      "document_id": "urn:iisacc:document:40864115d708a3618dbc7b3c22414a0ef3b184eea374c2236ba61c9206e9203d",
+      "source": "docs/DynamicLinking.md",
+      "agent_json": "docs/DynamicLinking.agent.json",
+      "source_sha256": "55f53d13d6f9c69a170fff1c6cbb6d8fe26550809b4bf5ba392b6653e1db18cd",
+      "role": "guide"
+    },
+    {
       "document_id": "urn:iisacc:document:ce06651cb9f87c431640ae2c78ba4c1ed81016b1d09189607d3eee7b8440f19b",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "cb186f497e1f60521a1fa2ae80ac3761e497b7673b9a4a1a887b1c36d45c07e0",
+      "source_sha256": "23a5ec79ea2a576181f3549f9417d9f1f9aa493303da3dd880cbc186b7b52464",
       "role": "overview"
     },
     {
@@ -56,7 +63,7 @@
       "document_id": "urn:iisacc:document:3a852e4cc2f55b3f62ff9efbb015f18c2b837d4b9f765a36e839b6b02a3c273e",
       "source": "docs/validation.md",
       "agent_json": "docs/validation.agent.json",
-      "source_sha256": "51c70ff8e1aff84d6efa06c3f4e79e764435b1887d477c8946735ef2284433be",
+      "source_sha256": "574911da1c2f36af045f6176e99ab1019d893fcbd663a2759fa5c5942c96463c",
       "role": "guide"
     },
     {
