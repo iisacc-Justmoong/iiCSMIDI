@@ -1,0 +1,5 @@
+#pragma once
+
+// C++ public entry for iiCSMIDI; the linked components select the API.
+#include <iiCSMIDI.h>
+#include <MidiDocument.h>
