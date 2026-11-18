@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.31)
 project(iiCSMIDI VERSION 0.3.1 LANGUAGES CXX)
+set(iiCSMIDI_SPDX_LICENSE "Apache-2.0")
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
@@ -61,6 +62,10 @@ if(BUILD_TESTING)
     add_test(NAME iiCSMIDI.SDKBoundary COMMAND "${CMAKE_COMMAND}"
         "-DMIDI_SOURCE=${CMAKE_CURRENT_SOURCE_DIR}" -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/sdk_independence.cmake")
     add_test(NAME iiCSMIDI.Boundary COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/boundary.py" "${CMAKE_CURRENT_SOURCE_DIR}")
+    add_test(NAME iiCSMIDI.license COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE=${CMAKE_CURRENT_SOURCE_DIR}"
+        "-DPACKAGE_CONFIG=${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfig.cmake"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/license_text.cmake")
 endif()
 set(_package_dir "${CMAKE_INSTALL_LIBDIR}/cmake/iiCSMIDI")
 configure_package_config_file(cmake/iiCSMIDIConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfig.cmake" INSTALL_DESTINATION "${_package_dir}")
@@ -69,7 +74,7 @@ install(TARGETS iiCSMIDI EXPORT iiCSMIDITargets RUNTIME DESTINATION ${CMAKE_INST
 install(FILES src/iiCSMIDI.h src/Export.h src/MidiDocument.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(EXPORT iiCSMIDITargets NAMESPACE iiCSMIDI:: DESTINATION "${_package_dir}")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfig.cmake" "${CMAKE_CURRENT_BINARY_DIR}/iiCSMIDIConfigVersion.cmake" DESTINATION "${_package_dir}")
-install(FILES README.md LICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCSMIDI)
+install(FILES README.md LICENSE NOTICE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCSMIDI)
 install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCSMIDI/docs
     PATTERN ".*.iisacc-preview" EXCLUDE PATTERN ".iisacc-temporary.lock" EXCLUDE PATTERN ".DS_Store" EXCLUDE)
 install(DIRECTORY example/CoreAsync DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCSMIDI/example

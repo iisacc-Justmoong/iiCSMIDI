@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "23a5ec79ea2a576181f3549f9417d9f1f9aa493303da3dd880cbc186b7b52464",
-    "bytes": 1011,
-    "line_count": 18,
+    "sha256": "d01b9a809f20e19a7c230afc3a5f6bfc0296f6704d214626cc7cda2c8946ffbb",
+    "bytes": 1076,
+    "line_count": 19,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -79,8 +79,8 @@
       "id": "b000008",
       "kind": "table",
       "start_line": 8,
-      "end_line": 17,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md) | [JSON](WindowsBuildAndRun.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`docs/independent-contract.md`](independent-contract.md) | [JSON](independent-contract.agent.json) |\n| [`docs/validation.md`](validation.md) | [JSON](validation.agent.json) |\n| [`tests/fixtures/README.md`](../tests/fixtures/README.md) | [JSON](mirrors/tests/fixtures/README.agent.json) |\n",
+      "end_line": 18,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/License.md`](License.md) | [JSON](License.agent.json) |\n| [`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md) | [JSON](WindowsBuildAndRun.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`docs/independent-contract.md`](independent-contract.md) | [JSON](independent-contract.agent.json) |\n| [`docs/validation.md`](validation.md) | [JSON](validation.agent.json) |\n| [`tests/fixtures/README.md`](../tests/fixtures/README.md) | [JSON](mirrors/tests/fixtures/README.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -97,6 +97,10 @@
         [
           "[`docs/DynamicLinking.md`](DynamicLinking.md)",
           "[JSON](DynamicLinking.agent.json)"
+        ],
+        [
+          "[`docs/License.md`](License.md)",
+          "[JSON](License.agent.json)"
         ],
         [
           "[`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md)",
@@ -123,8 +127,8 @@
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 18,
-      "end_line": 18,
+      "start_line": 19,
+      "end_line": 19,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -194,73 +198,87 @@
       },
       {
         "block_id": "b000008",
+        "label": "`docs/License.md`",
+        "target": "License.md",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "License.agent.json",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000008",
         "label": "`docs/WindowsBuildAndRun.md`",
         "target": "WindowsBuildAndRun.md",
         "kind": "relative",
-        "line": 13
+        "line": 14
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "WindowsBuildAndRun.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 14
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 14
+        "line": 15
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 15
       },
       {
         "block_id": "b000008",
         "label": "`docs/independent-contract.md`",
         "target": "independent-contract.md",
         "kind": "relative",
-        "line": 15
+        "line": 16
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "independent-contract.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 16
       },
       {
         "block_id": "b000008",
         "label": "`docs/validation.md`",
         "target": "validation.md",
         "kind": "relative",
-        "line": 16
+        "line": 17
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "validation.agent.json",
         "kind": "relative",
-        "line": 16
+        "line": 17
       },
       {
         "block_id": "b000008",
         "label": "`tests/fixtures/README.md`",
         "target": "../tests/fixtures/README.md",
         "kind": "relative",
-        "line": 17
+        "line": 18
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/fixtures/README.agent.json",
         "kind": "relative",
-        "line": 17
+        "line": 18
       }
     ],
     "tables": [
@@ -282,6 +300,10 @@
           [
             "[`docs/DynamicLinking.md`](DynamicLinking.md)",
             "[JSON](DynamicLinking.agent.json)"
+          ],
+          [
+            "[`docs/License.md`](License.md)",
+            "[JSON](License.agent.json)"
           ],
           [
             "[`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md)",
