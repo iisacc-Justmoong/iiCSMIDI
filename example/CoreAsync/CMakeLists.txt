@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 # iisdk:consumer-application
 project(iiCSMIDIAsync VERSION 0.3.1 LANGUAGES CXX)
+set(iiCSMIDIAsync_SPDX_LICENSE "Apache-2.0")
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
