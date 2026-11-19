@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "626e79f789519e55a1193ce23581a2d954828569b36e6f0c57cc35952437ca8b",
-    "bytes": 7576,
+    "sha256": "ab925c56e7ff65b49f611da808dcd0773d6febd1bc495973c7c1f89751959c21",
+    "bytes": 7612,
     "line_count": 152,
     "encoding": "utf-8",
     "language": "en"
@@ -313,7 +313,7 @@
       "kind": "paragraph",
       "start_line": 134,
       "end_line": 135,
-      "raw": "Original code/documents are MIT. See LICENSE. No Qt implementation or\ncode is copied. Public headers and implementations live together under src/.\n"
+      "raw": "Original code/documents are licensed under Apache 2.0. See LICENSE. No Qt implementation or\ncode is copied. Public headers and implementations live together under src/.\n"
     },
     {
       "id": "b000040",
@@ -343,7 +343,7 @@
       "kind": "paragraph",
       "start_line": 139,
       "end_line": 139,
-      "raw": "SPDX-License-Identifier: MIT\n"
+      "raw": "SPDX-License-Identifier: Apache-2.0\n"
     },
     {
       "id": "b000044",
@@ -357,7 +357,7 @@
       "kind": "paragraph",
       "start_line": 141,
       "end_line": 143,
-      "raw": "The original code and documentation in this repository are licensed under the\n[MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model\nweights retain their respective licenses.\n"
+      "raw": "The original code and documentation in this repository are licensed under the\n[Apache License 2.0](LICENSE). Third-party code, libraries, fonts, tools, and model\nweights retain their respective licenses.\n"
     },
     {
       "id": "b000046",
@@ -535,7 +535,7 @@
       },
       {
         "block_id": "b000045",
-        "label": "MIT License",
+        "label": "Apache License 2.0",
         "target": "LICENSE",
         "kind": "relative",
         "line": 142

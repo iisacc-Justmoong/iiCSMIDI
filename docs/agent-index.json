@@ -21,7 +21,7 @@
       "document_id": "urn:iisacc:document:fc7f317dfd8dc0768c9ff7e097117f0f46e7273ae8b8dd792baa425084559ddc",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "626e79f789519e55a1193ce23581a2d954828569b36e6f0c57cc35952437ca8b",
+      "source_sha256": "ab925c56e7ff65b49f611da808dcd0773d6febd1bc495973c7c1f89751959c21",
       "role": "overview"
     },
     {
