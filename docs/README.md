@@ -5,14 +5,12 @@
 
 Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.
 
-| Document | Agent JSON |
-| --- | --- |
-| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |
-| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |
-| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |
-| [`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md) | [JSON](WindowsBuildAndRun.agent.json) |
-| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |
-| [`docs/independent-contract.md`](independent-contract.md) | [JSON](independent-contract.agent.json) |
-| [`docs/validation.md`](validation.md) | [JSON](validation.agent.json) |
-| [`tests/fixtures/README.md`](../tests/fixtures/README.md) | [JSON](mirrors/tests/fixtures/README.agent.json) |
+- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)
+- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)
+- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)
+- Document: [`docs/WindowsBuildAndRun.md`](WindowsBuildAndRun.md); Agent JSON: [JSON](WindowsBuildAndRun.agent.json)
+- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)
+- Document: [`docs/independent-contract.md`](independent-contract.md); Agent JSON: [JSON](independent-contract.agent.json)
+- Document: [`docs/validation.md`](validation.md); Agent JSON: [JSON](validation.agent.json)
+- Document: [`tests/fixtures/README.md`](../tests/fixtures/README.md); Agent JSON: [JSON](Mirrors/Tests/Fixtures/README.agent.json)
 <!-- workspace-docs:document-map:end -->
